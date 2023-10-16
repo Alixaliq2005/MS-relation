@@ -30,22 +30,21 @@ public class Booking {
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
     @Builder.Default
-    List <Flights> flights = new ArrayList<>();
+    List<Flights> flights = new ArrayList<>();
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
     @Builder.Default
-    List <RentalCar> rentAlCars = new ArrayList<>();
+    List<RentalCar> rentAlCars = new ArrayList<>();
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
     @Builder.Default
-    List <Hotel> hotels = new ArrayList<>();
+    List<Hotel> hotels = new ArrayList<>();
 
     @OneToOne
     @JsonIgnore
-    @JoinColumn(name="payment_id")
+    @JoinColumn(name = "payment_id")
     @ToString.Exclude
     Payment payment;
-
 
 
 }

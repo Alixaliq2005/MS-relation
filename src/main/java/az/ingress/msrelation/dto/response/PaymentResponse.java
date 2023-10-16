@@ -10,7 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PaymentResponse {
-    Long id;
+    Long paymentId;
 
     String paymentAmount;
 

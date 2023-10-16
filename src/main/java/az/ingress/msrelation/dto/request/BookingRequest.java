@@ -19,8 +19,4 @@ public class BookingRequest {
 
     String totalCost;
 
-
-
-
-
 }
