@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User,Long>, JpaSpecificationExecutor<User> {
     @EntityGraph(attributePaths = {"authorities"})
-    Optional<User> findByUserName(String UserName);
+    Optional<User> findByUsername(String Username);
     User findById(long id);
 }

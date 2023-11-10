@@ -2,6 +2,7 @@ package az.ingress.msrelation.configuration;
 
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -11,13 +12,14 @@ import java.security.Key;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
+import java.util.Map;
 import java.util.Set;
 
 @Component
 @Slf4j
 @RequiredArgsConstructor
 public class JwtService {
-    private final Set<ClaimProvider> claimProviderSet;
+    private final Set<ClaimProvider> claimProvider;
     private final Set<ClaimSetProvider> claimSetProviders;
     private final SecurityProperties securityProperties;
     private Key key;
@@ -34,8 +36,30 @@ public class JwtService {
                 .setIssuedAt(new Date())
                 .setExpiration(Date.from(Instant.now().plus
                         (Duration.ofSeconds(securityProperties.getJwtProperties().getTokenValidInSeconds()))))
-           
-                
+                .setHeader(Map.of("type","JWT"))
+                .signWith(SignatureAlgorithm.HS512,key);
+        addClaims(jwtBuilder,authentication);
+        addClaimSet(jwtBuilder,authentication);
+        return jwtBuilder.compact();
+
+    }
+
+    private JwtBuilder addClaims(JwtBuilder jwtBuilder,Authentication authentication){
+        claimProvider.forEach(claimsProvider ->{
+            Claim claim = claimsProvider.provide(authentication);
+            log.info("Adding claim {}",claim);
+            jwtBuilder.claim(claim.getKey(),claim.getClaim());
+        });
+        return  jwtBuilder;
+    }
+
+    private JwtBuilder addClaimSet(JwtBuilder jwtBuilder,Authentication authentication){
+        claimSetProviders.forEach(claimSetProvider ->{
+            ClaimSet claimSet = claimSetProvider.provideSet(authentication);
+            log.info("Adding claim {}",claimSet);
+            jwtBuilder.claim(claimSet.getKey(),claimSet.getClaim());
+        });
+        return  jwtBuilder;
     }
 
 }
