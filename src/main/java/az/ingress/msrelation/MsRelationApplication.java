@@ -1,7 +1,6 @@
 package az.ingress.msrelation;
 
 import az.ingress.msrelation.domain.Booking;
-import az.ingress.msrelation.domain.User;
 import az.ingress.msrelation.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -28,11 +27,11 @@ public class MsRelationApplication implements CommandLineRunner {
 //                .phoneNumber("0706876721")
 //                .build();
 //        userRepository.save(user);
-
-        Booking booking= Booking.builder()
-                .id(5L)
-                .bookingDate("05.05.2002")
-                .totalCost("550 dollar")
-                .build();
+//
+//        Booking booking = Booking.builder()
+//                .id(5L)
+//                .bookingDate("05.05.2002")
+//                .totalCost("550 dollar")
+//                .build();
     }
 }

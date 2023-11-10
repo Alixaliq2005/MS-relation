@@ -28,17 +28,17 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> findById(@PathVariable Long userId) {
+    public ResponseEntity<UserResponse> findById(@PathVariable Long userId, @PathVariable String id) {
         return new ResponseEntity<>(userService.findById(userId), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponse> update(@PathVariable Long userId, @RequestBody UserRequest userRequest) {
+    public ResponseEntity<UserResponse> update(@PathVariable Long userId, @RequestBody UserRequest userRequest, @PathVariable String id) {
         return new ResponseEntity<>(userService.update(userId, userRequest), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long userId) {
+    public void delete(@PathVariable Long userId, @PathVariable String id) {
         userService.delete(userId);
     }
 }
