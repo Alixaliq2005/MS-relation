@@ -25,7 +25,7 @@ public class JwtService {
     private Key key;
 
     public Claim parseToken(String token) {
-        return Jwts.parser()
+        return (Claim) Jwts.parser();
     }
 
 
@@ -36,30 +36,30 @@ public class JwtService {
                 .setIssuedAt(new Date())
                 .setExpiration(Date.from(Instant.now().plus
                         (Duration.ofSeconds(securityProperties.getJwtProperties().getTokenValidInSeconds()))))
-                .setHeader(Map.of("type","JWT"))
-                .signWith(SignatureAlgorithm.HS512,key);
-        addClaims(jwtBuilder,authentication);
-        addClaimSet(jwtBuilder,authentication);
+                .setHeader(Map.of("type", "JWT"))
+                .signWith(SignatureAlgorithm.HS512, key);
+        addClaims(jwtBuilder, authentication);
+        addClaimSet(jwtBuilder, authentication);
         return jwtBuilder.compact();
 
     }
 
-    private JwtBuilder addClaims(JwtBuilder jwtBuilder,Authentication authentication){
-        claimProvider.forEach(claimsProvider ->{
+    private JwtBuilder addClaims(JwtBuilder jwtBuilder, Authentication authentication) {
+        claimProvider.forEach(claimsProvider -> {
             Claim claim = claimsProvider.provide(authentication);
-            log.info("Adding claim {}",claim);
-            jwtBuilder.claim(claim.getKey(),claim.getClaim());
+            log.info("Adding claim {}", claim);
+            jwtBuilder.claim(claim.getKey(), claim.getClaim());
         });
-        return  jwtBuilder;
+        return jwtBuilder;
     }
 
-    private JwtBuilder addClaimSet(JwtBuilder jwtBuilder,Authentication authentication){
-        claimSetProviders.forEach(claimSetProvider ->{
+    private JwtBuilder addClaimSet(JwtBuilder jwtBuilder, Authentication authentication) {
+        claimSetProviders.forEach(claimSetProvider -> {
             ClaimSet claimSet = claimSetProvider.provideSet(authentication);
-            log.info("Adding claim {}",claimSet);
-            jwtBuilder.claim(claimSet.getKey(),claimSet.getClaim());
+            log.info("Adding claim {}", claimSet);
+            jwtBuilder.claim(claimSet.getKey(), claimSet.getClaim());
         });
-        return  jwtBuilder;
+        return jwtBuilder;
     }
 
 }

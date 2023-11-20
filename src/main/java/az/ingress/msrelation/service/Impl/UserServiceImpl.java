@@ -1,9 +1,10 @@
-package az.ingress.msrelation.service;
+package az.ingress.msrelation.service.Impl;
 
 import az.ingress.msrelation.domain.User;
 import az.ingress.msrelation.dto.request.UserRequest;
 import az.ingress.msrelation.dto.response.UserResponse;
 import az.ingress.msrelation.repository.UserRepository;
+import az.ingress.msrelation.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

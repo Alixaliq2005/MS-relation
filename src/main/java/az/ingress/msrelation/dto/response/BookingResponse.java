@@ -1,6 +1,6 @@
 package az.ingress.msrelation.dto.response;
 
-import az.ingress.msrelation.domain.Flights;
+import az.ingress.msrelation.domain.Flight;
 import az.ingress.msrelation.domain.Hotel;
 import az.ingress.msrelation.domain.RentalCar;
 import lombok.*;
@@ -20,10 +20,10 @@ public class BookingResponse {
 
     String totalCost;
 
-    List<Flights> flights;
+    List<Flight> flights;
 
-    List <RentalCar> rentAlCars;
+    List<RentalCar> rentAlCars;
 
-    List <Hotel> hotels;
+    List<Hotel> hotels;
     PaymentResponse payment;
 }

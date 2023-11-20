@@ -10,7 +10,7 @@ import lombok.experimental.FieldDefaults;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "flights")
-public class Flights {
+public class Flight {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
